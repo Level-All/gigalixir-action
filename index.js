@@ -111,10 +111,8 @@ async function run() {
       if (appSubfolder) {
         await exec.exec(`git ${addExtraFlagCleanCache(gigalixirClean)} subtree push --prefix ${appSubfolder} gigalixir master`);
       } else {
-        // Add an empty commit to the tip of this branch to force the post-receive hook to run, even if there are no local changes
-        await exec.exec(`git config --global user.email "github-actions@example.com"`);
-        await exec.exec(`git config --global user.name "GitHub Actions"`);
-        await exec.exec(`git commit --allow-empty -m "Deploying to Gigalixir"`);
+        // Forcefully delete the remote master
+        await exec.exec(`git ${addExtraFlagCleanCache(gigalixirClean)} push -f gigalixir --delete master`);
 
         await exec.exec(`git ${addExtraFlagCleanCache(gigalixirClean)} push -f gigalixir HEAD:refs/heads/master`);
       }
