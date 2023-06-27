@@ -1277,9 +1277,6 @@ async function run() {
       if (appSubfolder) {
         await exec.exec(`git ${addExtraFlagCleanCache(gigalixirClean)} subtree push --prefix ${appSubfolder} gigalixir master`);
       } else {
-        // Forcefully delete the remote master
-        await exec.exec(`git ${addExtraFlagCleanCache(gigalixirClean)} push -f gigalixir --delete master`);
-
         await exec.exec(`git ${addExtraFlagCleanCache(gigalixirClean)} push -f gigalixir HEAD:refs/heads/master`);
       }
     });
